@@ -1,4 +1,7 @@
 const products = [];
+// API base can be set from the hosting environment. Example:
+// <script>window.API_BASE = 'https://my-backend.example.com';</script>
+const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE.replace(/\/$/, '') : '';
 let activities = [];
 let chartHistory = [];
 
@@ -35,7 +38,8 @@ const els = {
 };
 
 async function api(path, options = {}) {
-  const response = await fetch(path, {
+  const url = path.startsWith('http') ? path : `${API_BASE}${path}`;
+  const response = await fetch(url, {
     headers: { "Content-Type": "application/json" },
     ...options
   });
