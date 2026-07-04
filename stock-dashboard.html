@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestion de Stock</title>
+  <link rel="stylesheet" href="stock-dashboard.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">GS</span><div><strong>StockPilot</strong><small>Gestion de stock</small></div></div>
+    <nav class="nav"><a class="active" href="#dashboard">Dashboard</a><a href="#products">Produits</a><a href="#movement">Mouvements</a><a href="#flow">Historique</a></nav>
+  </aside>
+  <main class="app">
+    <header class="topbar"><div><p class="eyebrow">Centre de controle</p><h1>Gestion de stock avec mouvements manuels</h1></div><label class="search"><span>Rechercher</span><input id="searchInput" type="search" placeholder="Produit, categorie..." /></label></header>
+    <section id="dashboard" class="kpi-grid">
+      <article class="kpi"><span>Valeur du stock</span><strong id="stockValue">0 TND</strong><small>Total valorise</small></article>
+      <article class="kpi"><span>Quantite totale</span><strong id="stockUnits">0</strong><small>Unites disponibles</small></article>
+      <article class="kpi warning"><span>Alertes seuil</span><strong id="alertCount">0</strong><small>Produits sous seuil</small></article>
+      <article class="kpi"><span>Categories</span><strong id="categoryCount">0</strong><small>Types de produits</small></article>
+    </section>
+    <section class="panel chart-panel"><div class="panel-header"><div><h2>Courbe du stock</h2><p>Evolution apres chaque mouvement manuel</p></div><select id="chartMode"><option value="value">Valeur</option><option value="units">Quantite</option></select></div><canvas id="stockChart" width="1100" height="320"></canvas></section>
+    <section class="workspace">
+      <div id="products" class="panel"><div class="panel-header"><div><h2 id="productFormTitle">Ajouter un produit</h2><p>Choisis la categorie, la quantite, le seuil et le prix</p></div><button id="resetProductBtn" class="ghost" type="button">Nouveau</button></div>
+        <form id="productForm" class="form-grid"><input id="productId" type="hidden" /><label>Nom du produit<input id="productName" type="text" placeholder="Ex: Ecran 27 pouces" required /></label><label>Categorie<select id="productCategory" required><option>Informatique</option><option>Accessoires</option><option>Logistique</option><option>Audio</option><option>Reseau</option><option>Stockage</option><option>Consommable</option></select></label><label>Quantite initiale<input id="productQty" type="number" min="0" value="0" required /></label><label>Seuil alerte<input id="productThreshold" type="number" min="0" value="10" required /></label><label>Prix unitaire TND<input id="productPrice" type="number" min="0" value="100" required /></label><button class="primary" type="submit">Enregistrer produit</button></form>
+      </div>
+      <div id="movement" class="panel"><div class="panel-header"><div><h2>Alimenter ou consommer</h2><p>Le flux bouge seulement quand tu valides ici</p></div></div><form id="movementForm" class="movement-form"><label>Produit<select id="movementProduct"></select></label><label>Action<select id="movementType"><option value="in">Alimenter le stock</option><option value="out">Consommer le stock</option></select></label><label>Quantite<input id="movementQty" type="number" min="1" value="1" required /></label><button class="primary" type="submit">Valider mouvement</button></form></div>
+    </section>
+    <section class="split">
+      <div class="panel"><div class="panel-header"><div><h2>Inventaire</h2><p>Modifier, supprimer et surveiller le statut</p></div></div><div class="table-wrap"><table><thead><tr><th>Produit</th><th>Categorie</th><th>Stock</th><th>Seuil</th><th>Prix</th><th>Valeur</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="inventoryTable"></tbody></table></div></div>
+      <div id="flow" class="panel"><div class="panel-header"><div><h2>Flux temps reel</h2><p>Derniers mouvements detectes</p></div><button id="clearFlowBtn" class="ghost" type="button">Effacer</button></div><div id="activityFeed" class="activity-feed empty"></div></div>
+    </section>
+  </main>
+  <script src="stock-dashboard.js"></script>
+</body>
+</html>
