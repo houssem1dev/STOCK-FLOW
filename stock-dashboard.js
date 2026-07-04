@@ -1,7 +1,9 @@
 const products = [];
 // API base can be set from the hosting environment. Example:
 // <script>window.API_BASE = 'https://my-backend.example.com';</script>
-const API_BASE = (typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE.replace(/\/$/, '') : '';
+const API_BASE = (typeof window !== 'undefined' && window.API_BASE)
+  ? window.API_BASE.replace(/\/$/, '')
+  : 'https://stockflowhoussem.vercel.app';
 let activities = [];
 let chartHistory = [];
 
