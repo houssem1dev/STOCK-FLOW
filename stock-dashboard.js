@@ -352,8 +352,9 @@ els.inventoryTable.addEventListener("click", (event) => {
 });
 
 function showError(error) {
-  alert("Erreur de connexion avec la base de donnees locale.");
-  console.error(error);
+  const message = (error && error.message) || String(error) || 'Erreur inconnue';
+  alert(`Erreur: ${message}`);
+  console.error('Detailed error:', error);
 }
 
 refreshData({ recordChart: true }).catch(showError);
